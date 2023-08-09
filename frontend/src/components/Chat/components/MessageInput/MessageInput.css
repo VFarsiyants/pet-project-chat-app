@@ -1,0 +1,17 @@
+.message-input {
+  justify-self: end;
+  padding: var(--spacing-16) var(--spacing-12);
+  display: flex;
+  gap: var(--spacing-16);
+  align-items: end;
+  flex-shrink: 0;
+}
+
+.message-input textarea {
+  resize: none;
+  width: 100%;
+  border: none;
+  overflow: hidden;
+  min-height: 24px;
+  max-height: 30vh;
+}

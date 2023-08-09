@@ -1,0 +1,8 @@
+.side_menu {
+  max-width: 100%;
+}
+
+.side_menu--contact-list {
+  overflow-y: scroll;
+  max-height: calc(100vh - 56px);
+}

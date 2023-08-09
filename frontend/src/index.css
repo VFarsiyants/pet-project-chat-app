@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("assets/fonts/SFProText-Regular.ttf") format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: "SF Pro Text";
+  src: url("assets/fonts/SFProText-Medium.ttf") format('truetype');
+  font-weight: 500;
+}
+
+textarea:focus, input:focus{
+  outline: none;
+}
+
+:root {
+  --primary-main: #2B6CB0;
+  --bg-primary: #FFF;
+  --text-primary: #13141D;
+  --text-secondary: #8287A0;
+  --text-accent: #2B6CB0;
+  --gray-6: #F2F2F2;
+  --color-gray-9: #DCE1EB;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-20: 20px;
+  --radius-corner-radius-8: 8px;
+  --text-reversible-text: #FFF;
+  font-family: 'SF Pro Text';
+}
+
+textarea {
+  font-family: inherit;
+}

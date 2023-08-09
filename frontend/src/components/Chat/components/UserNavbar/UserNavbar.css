@@ -1,0 +1,91 @@
+.user_navbar {
+  width: 100%;
+  padding: var(--spacing-12);
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.user_navbar--info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-primary);
+  margin-right: auto;
+}
+
+.user_navbar--avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.user_navbar--info p {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user_navbar--info--online {
+  color: var(--text-accent);
+}
+
+.user_navbar--input {
+  position: relative;
+  width: 24px;
+  max-width: 24px;
+  transition: all 0.3s ease-out;
+}
+
+.user_navbar--input.active {
+  width: 100%;
+  max-width: 200px;
+}
+
+.user_navbar--search {
+  transition: all 0.3s ease-out;
+  height: 32px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 100%;
+  background: #EDEEF5;
+  border: none;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.user_navbar--search.active {
+  opacity: 1;
+  padding: 4px 12px 4px 44px;
+}
+
+.user_navbar--search__icon {
+  transition: all 0.1s ease-out;
+  position: absolute;
+  top: 4px;
+  left: 0;
+  opacity: 1;
+  cursor: pointer;
+}
+
+.user_navbar--search__icon.active {
+  left: 12px;
+  opacity: 0;
+}
+
+.user_navbar--date_icon {
+  transition: all 0.1s ease-out;
+  position: absolute;
+  left: 12px;
+  top: 4px;
+  opacity: 0;
+  cursor: pointer;
+  z-index: -1;
+}
+
+.user_navbar--date_icon.active {
+  opacity: 1;
+  z-index: 1;
+}

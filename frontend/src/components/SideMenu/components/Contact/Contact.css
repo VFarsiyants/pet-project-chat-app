@@ -1,0 +1,92 @@
+.contact {
+  padding: var(--spacing-12);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  font-size: 12px;
+  color: var(--text-primary);
+  min-width: 64px;
+  max-width: 300px;
+  border-right: 1px solid var(--gray-6);
+  border-bottom: 1px solid var(--gray-6);
+}
+
+.contact--info {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  width: 100%;
+  overflow: hidden;
+}
+
+.contact.selected {
+  background: var(--primary-main);
+  color: #FFF !important;
+  border-right: 1px solid var(--primary-main);
+  border-bottom: 1px solid var(--primary-main);
+}
+
+.contact--name_time {
+  display: flex;
+  overflow: hidden;
+}
+
+.contact--name {
+  margin-right: auto;
+  font-weight: 500;
+  font-size: 14px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+
+}
+
+.contact--message_time {
+  color: var(--text-secondary);
+  white-space: nowrap;
+  align-self: flex-end;
+}
+
+.contact--message_time.selected {
+  color: #FFF;
+}
+
+.contact--message {
+  display: flex;
+  justify-content: space-between;
+  overflow: hidden;
+  align-items: center;
+  width: 100%;
+}
+
+.contact--message-text {
+  color: var(--text-secondary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.contact--message-text.selected {
+  color: #FFF;
+}
+
+.contact--message_unread {
+  background: var(--primary-main);
+  color: #FFF;
+  font-weight: 500;
+  border-radius: 28px;
+  padding: 0 5px;
+  text-align: center;
+  white-space: nowrap;
+}
+
+.contact--message_unread.selected {
+  color: var(--primary-main);
+  background: #FFF;
+}
+
+.contact_message_sent {
+  width: 16px;
+  height: 16px;
+  margin-right: 4px;
+}

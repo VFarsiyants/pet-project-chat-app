@@ -1,6 +1,15 @@
 import axios from 'axios';
 
-export const API_URL = 'http://localhost:8000/api'
+const apiPort = import.meta.env.MODE == 'development'
+  ? ':8000'
+  : ''
+
+const apiHost = import.meta.env.VITE_HOST
+  ? import.meta.env.VITE_HOST
+  : 'localhost'
+
+export const API_URL = `http://${apiHost}${apiPort}/api`
+export const MEDIA_URL = `http://${apiHost}${apiPort}`
 
 const $api = axios.create({
   withCredentials: true,

@@ -1,0 +1,21 @@
+.my_button {
+  display: flex;
+  height: 40px;
+  padding: var(--spacing-12, 12px) var(--spacing-24, 24px);
+  justify-content: center;
+  gap: 12px;
+  border-radius: var(--radius-corner-radius-8, 8px);
+  background: var(--button-primary, #2B6CB0);
+  border: none;
+  color: var(--text-reversible-text, #FFF);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.my_button:hover {
+  background: var(--button-hover, #3182CE);
+}
+
+.my_button:hover .inner_circular {
+  background: var(--button-hover, #3182CE);
+}

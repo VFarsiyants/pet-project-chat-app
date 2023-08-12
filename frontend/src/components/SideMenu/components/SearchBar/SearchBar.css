@@ -24,3 +24,7 @@
 .search_bar--input::placeholder {
   color: #8287A0;
 }
+
+.search_bar--user-icon {
+  cursor: pointer;
+}

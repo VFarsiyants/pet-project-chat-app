@@ -1,0 +1,29 @@
+.user_panel_list_item {
+  padding: 8px 16px;
+  display: flex;
+  gap: 12px;
+  justify-content: flex-start;
+  height: 40px;
+  border: none;
+  background-color: #FFF;
+  color: var(--gray-1, #333);
+  font-size: 16px;
+  align-items: center;
+}
+
+.user_panel_list_item:hover {
+  background: var(--gray-6, #F2F2F2);
+}
+
+.user_panel_list_item:last-child {
+  margin-top: auto;
+}
+
+.user_panel_list_item div {
+  height: 24px;
+  width: 24px;
+  padding: 4px;
+  border-radius: var(--radius-corner-radius-8, 8px);
+  object-fit: contain;
+  object-position: center;
+}

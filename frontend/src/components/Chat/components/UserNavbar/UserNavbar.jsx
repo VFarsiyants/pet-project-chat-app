@@ -1,27 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 
-import avatar from '../../../../images/Avatar.png'
 import "./UserNavbar.css"
 
 import { ReactComponent as SearchIcon } from '../../../../images/icons/interface-search--glass-search-magnifying.svg';
 import { ReactComponent as DateToday } from '../../../../images/icons/date_today_light.svg';
-import AuthService from "../../../../services/ApiService";
 
 
 function Navbar(props) {
   const inputRef = useRef(null);
-  const [user, setUser] = useState();
   const [searchSelected, setSearchSelected] = useState(false);
   const [focus, setFocus] = useState(false)
-
-  useEffect(() => {
-    async function fetchUser() {
-      const response = await AuthService.getContact(props.selectedContactId);
-      setUser(response.data);
-      console.log(response.data);
-    }
-    fetchUser();
-  }, [])
 
   function searchBarHandleClick() {
     setSearchSelected(prevValue => !prevValue)
@@ -37,21 +25,23 @@ function Navbar(props) {
     inputRef.current.focus()
   }, [focus])
 
-  const userName = user?.surname && user?.fullname
-    ? `${user?.fullname} ${user?.surname}`
-    : user?.email
+  const userName = props.selectedContact?.surname && props.selectedContact?.fullname
+    ? `${props.selectedContact?.fullname} ${props.selectedContact?.surname}`
+    : props.selectedContact?.email
 
   return (
     <div className="user_navbar">
       <div className="user_navbar--info">
         <img 
-          src={avatar}
+          src={props.selectedContact?.avatar_url}
           className="user_navbar--avatar"
           alt="Contact avatar"
         />
         <div>
           <p>{userName}</p>
-          <p className="user_navbar--info--online">online</p>
+          <p className="user_navbar--info--online">
+            {props.selectedContact?.online_status ? 'online' : 'last seen recently'}
+          </p>
         </div>
       </div>
       <div className={`user_navbar--input ${searchSelected ? 'active' : ''}`}>

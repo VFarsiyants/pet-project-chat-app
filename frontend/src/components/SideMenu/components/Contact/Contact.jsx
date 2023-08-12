@@ -1,5 +1,6 @@
 import Avatar from "../../../Avatar/Avatar";
 import './Contact.css'
+import { convertTime } from "../../../../utils/utils";
 
 import { ReactComponent as DoneRoundImg } from '../../../../images/icons/done_round_light.svg';
 import { ReactComponent as DoneAllAltRoundImg } from '../../../../images/icons/done_all_alt_round_light.svg';
@@ -7,16 +8,16 @@ import { ReactComponent as DoneAllAltRoundImg } from '../../../../images/icons/d
 
 function Contact (
   {
-    id,
     isSelected, 
     isSentRead, 
     contactName, 
     iAmLastSender,
-    lastMessageTime,
-    lastMessageText,
+    lastMessage,
     unreadMessageCount,
     isOnline,
-    onSelectContact
+    onSelectContact,
+    avatarImg,
+    contact,
   }) {
 
   const doneImgEl = isSentRead
@@ -34,9 +35,12 @@ function Contact (
   return (
     <div 
       className={`contact ${isSelected ? "selected": ""}`}
-      onClick={() => onSelectContact(id)}
+      onClick={() => {onSelectContact(contact)}}
     >
-      <Avatar isOnline={isOnline}/>
+      <Avatar 
+        isOnline={isOnline}
+        avatarImg={avatarImg}
+      />
       <div className="contact--info">
         <div className={
             `contact--name_time ${isSelected ? "selected": ""}`}>
@@ -45,17 +49,17 @@ function Contact (
           <p className={
             `contact--message_time ${isSelected ? "selected": ""}`}
           >
-            {lastMessageTime}
+            {lastMessage ? convertTime(lastMessage.timestamp) : ''}
           </p>
         </div>
         <div className="contact--message">
           <p className={
               `contact--message-text ${isSelected ? "selected": ""}`}>
-            {lastMessageText}</p>
+            {lastMessage?.text}</p>
           <p className={
             `contact--message_unread ${isSelected ? "selected": ""}`}
           >
-            {unreadMessageCount}
+            {unreadMessageCount ? unreadMessageCount : undefined}
           </p>
         </div>
       </div>

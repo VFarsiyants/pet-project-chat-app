@@ -3,7 +3,7 @@ import { ReactComponent as AttachBtn} from '../../../../images/icons/interface-e
 import { ReactComponent as SendBtn} from '../../../../images/icons/send_fill.svg'
 
 import { useEffect, useRef, useState } from 'react';
-import WebSocketInstance from '../../websocket';
+import { WebSocketChatInstance } from '../../websocket';
 
 
 function MessageInput(props) {
@@ -20,9 +20,8 @@ function MessageInput(props) {
   }
 
   function handleMessageSent() {
-    console.log('handleSent Called')
     if (messageText) {
-      WebSocketInstance.newChatMessage({
+      WebSocketChatInstance.newChatMessage({
         from: props.currentUser,
         content: messageText
       })
@@ -32,7 +31,6 @@ function MessageInput(props) {
 
   function handleKeyDown(event) {
     event.stopPropagation()
-    console.log('handleSent via Enter Called')
     if (event.key === 'Enter') {
       handleMessageSent()
     }

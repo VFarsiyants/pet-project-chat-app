@@ -1,42 +1,66 @@
 import { useContext, useEffect, useState } from 'react';
 import './App.css'
-import SideMenu from './components/SideMenu/SideMenu'
-import Chat from './components/Chat/Chat'
-import LoginForm from './components/LoginForm'
+import LoginForm from './components/LoginPage/LoginForm/LoginForm';
+import RegistrationForm from './components/LoginPage/RegistrationForm/RegistrationForm';
+import UserPanel from './components/UserPanel/UserPanel';
+import MainPanel from './components/MainPanel/MainPanel';
 import { Context } from './main';
 import { observer } from 'mobx-react-lite'
+import {
+  createBrowserRouter,
+  RouterProvider,
+} from "react-router-dom";
+import { WebSocketContactsInstance } from './components/Chat/websocket';
+
+
+const routerLogin = createBrowserRouter([
+  {
+    path: "/",
+    element: <LoginForm />,
+  },
+  {
+    path: "register",
+    element: <RegistrationForm />,
+  },
+]);
 
 
 function App() {
   const {store} = useContext(Context);
-  const [selectedContact, setSelectedContact] = useState()
-  
-  function selectContact(selectedId) {
-    setSelectedContact(selectedId);
-  }
+  const [userPanelIsActive, setUserPanelIsActive] = useState(false)
 
   useEffect(() => {
     if(localStorage.getItem('token')) {
-      store.checkAuth()
+      store.checkAuth();
     }
   }, [])
+
+  useEffect(() => {
+    function closeWebsocket() {
+      WebSocketContactsInstance.disconnect()
+    }
+    if (store.isAuth){
+      WebSocketContactsInstance.connect('user_online_status');
+      return closeWebsocket
+    }
+  }, [store.isAuth])
 
   if (store.isAuth) {
     return (
       <div className='container'>
-        <SideMenu 
-          selectContact={selectContact}
-          selectedContactId={selectedContact}
+        <MainPanel 
+          isDeactive={userPanelIsActive}
+          openUserPnl={() => setUserPanelIsActive(true)}
         />
-        <Chat 
-          key={selectedContact}
-          selectedContactId={selectedContact}
+        <UserPanel 
+          isActive={userPanelIsActive}
+          close={() => setUserPanelIsActive(false)}
         />
       </div>
     )
   } else {
     return (
-      <LoginForm />
+      <RouterProvider router={routerLogin} />
     )
   }
 }

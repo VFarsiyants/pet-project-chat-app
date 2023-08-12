@@ -3,15 +3,19 @@
   box-sizing: border-box;
 }
 
+body {
+  overflow-x: hidden;
+}
+
 @font-face {
   font-family: "SF Pro Text";
-  src: url("assets/fonts/SFProText-Regular.ttf") format('truetype');
+  src: url("/src/assets/fonts/SFProText-Regular.ttf") format('truetype');
   font-weight: 400;
 }
 
 @font-face {
   font-family: "SF Pro Text";
-  src: url("assets/fonts/SFProText-Medium.ttf") format('truetype');
+  src: url("/src/assets/fonts/SFProText-Medium.ttf") format('truetype');
   font-weight: 500;
 }
 
@@ -27,13 +31,16 @@ textarea:focus, input:focus{
   --text-accent: #2B6CB0;
   --gray-6: #F2F2F2;
   --color-gray-9: #DCE1EB;
+  --text-error: #E53E3E;
   --spacing-4: 4px;
   --spacing-8: 8px;
   --spacing-12: 12px;
   --spacing-16: 16px;
   --spacing-20: 20px;
+  --spacing-40: 40px;
   --radius-corner-radius-8: 8px;
   --text-reversible-text: #FFF;
+  --radius-corner-radius-8: 8px;
   font-family: 'SF Pro Text';
 }
 

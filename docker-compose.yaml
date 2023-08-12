@@ -1,0 +1,58 @@
+version: '2'
+
+services:
+  chat_backend:
+    image: django_app
+    build: .
+    entrypoint: /usr/local/bin/docker-entrypoint.sh
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/backend
+      - static_data:/backend/staticfiles
+      - media_data:/backend/media
+    expose:
+      - 8000
+    env_file:
+      - docker.env
+  db:
+    image: postgres:13-alpine
+    restart: always
+    volumes:
+      - pg_data:/var/lib/postgresql/data/
+    expose:
+      - 5432
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+  webserver:
+    image: nginx:1.19.8-alpine
+    depends_on:
+      - chat_backend
+    ports:
+      - "80:80"
+    volumes:
+      - static_data:/var/www/html/static
+      - media_data:/var/www/html/media
+      - ./nginx-conf.d:/etc/nginx/conf.d
+  channels:
+    image: django_app
+    build: .
+    command: daphne -b 0.0.0.0 -p 8001 chat_app.asgi:application
+    depends_on:
+      - chat_backend
+      - redis
+    expose:
+      - 8001
+    env_file:
+      - docker.env
+  redis:
+    restart: unless-stopped
+    image: redis:latest
+    expose:
+      - 6379
+volumes:
+  pg_data:
+  static_data:
+  media_data:

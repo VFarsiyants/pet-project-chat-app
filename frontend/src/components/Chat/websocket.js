@@ -1,21 +1,28 @@
-class WebSocketService {
+class WebSocketBaseService {
   static instance = null;
   callbacks = {}
 
   static getInstance() {
-    if (!WebSocketService.instance) {
-        WebSocketService.instance = new WebSocketService()
+    if (!WebSocketBaseService.instance) {
+      WebSocketBaseService.instance = new WebSocketBaseService()
     }
-    return WebSocketService.instance
+    return WebSocketBaseService.instance
   }
 
   constructor() {
     this.socketRef = null;
+    this.selfClosed = false;
   }
 
-  connect(socket_path, id) {
+  connect(socket_path) {
+    const webSocketPort = import.meta.env.MODE == 'development'
+      ? ':8000'
+      : ''
+    const apiHost = import.meta.env.VITE_HOST
+      ? import.meta.env.VITE_HOST
+      : 'localhost'
     const token = localStorage.getItem('token');
-    const path = `ws://127.0.0.1:8000/ws/${socket_path}/${id}/?access=${token}`;
+    const path = `ws://${apiHost}${webSocketPort}/ws/${socket_path}/?access=${token}`;
     this.socketRef = new WebSocket(path)
     this.socketRef.onopen = () => {
         console.log('websocket open');
@@ -27,8 +34,20 @@ class WebSocketService {
         console.log(e);
     }
     this.socketRef.onclose = () => {
-        console.log('websocket is closed');
-        this.connect(socket_path, id);
+      if (!this.selfClosed) {
+          console.log('websocket is closed, trying to reconnect');
+          this.connect(socket_path);
+        } else {
+          this.selfClosed = false;
+          console.log('websocket is closed');
+        }
+    }
+  }
+
+  disconnect() {
+    if (this?.socketRef) {
+      this.selfClosed = true;
+      this.socketRef.close(4000, 'closed by user');
     }
   }
 
@@ -38,35 +57,17 @@ class WebSocketService {
     if (Object.keys(this.callbacks).length === 0) {
       return;
     }
-    if (command == 'messages') {
-      console.log('messages update');
-      this.callbacks[command](parsedData.messages);
-    }
-    if (command == 'new_message') {
-      this.callbacks[command](parsedData.message);
-      console.log('new message');
+    if (command) {
+      this.callbacks[command](parsedData.data);
+    } else {
+      console.error('Unknown socket message format')
     }
   }
 
-  fetchMessages(username) {
-    this.sendMessage({
-      command: 'fetch_messages',
-      username: username
-    })
-  }
-
-  newChatMessage(message) {
-    console.log('newchat in socket')
-    this.sendMessage({
-      command: 'new_message',
-      from: message.from,
-      message: message.content,
-    })
-  }
-
-  addCallbacks(messagesCallback, newMessageCallback) {
-    this.callbacks['messages'] = messagesCallback;
-    this.callbacks['new_message'] = newMessageCallback;
+  addCallbacks(callbacks) {
+    for (const [name, callback] of Object.entries(callbacks)) {
+      this.callbacks[name] = callback
+    }
   }
 
   state() {
@@ -98,6 +99,28 @@ class WebSocketService {
   }
 }
 
-const WebSocketInstance = WebSocketService.getInstance();
+class WebSocketChatService extends WebSocketBaseService {
+  static getInstance() {
+    if (!WebSocketChatService.instance) {
+      WebSocketChatService.instance = new WebSocketChatService()
+    }
+    return WebSocketChatService.instance
+  }
+  fetchMessages(username) {
+    this.sendMessage({
+      command: 'fetch_messages',
+      username: username
+    })
+  }
 
-export default WebSocketInstance;
+  newChatMessage(message) {
+    this.sendMessage({
+      command: 'new_message',
+      from: message.from,
+      message: message.content,
+    })
+  }
+}
+
+export const WebSocketChatInstance = WebSocketChatService.getInstance();
+export const WebSocketContactsInstance = WebSocketBaseService.getInstance();

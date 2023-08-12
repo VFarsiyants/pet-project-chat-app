@@ -9,6 +9,16 @@
   overflow-y: scroll;
 }
 
+.message-list::-webkit-scrollbar {
+  display: none;
+}
+
+.message-list {
+  height: 100%;
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
 
 .message--from {
   display: grid;

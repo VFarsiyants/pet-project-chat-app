@@ -1,0 +1,75 @@
+.circular-progress {
+  position: relative;
+  display: inline-block;
+}
+
+.circular-progress-circle {
+  position: relative;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.inner_circular{
+  width: 10px;
+  position: absolute;
+  z-index: 1;
+  height: 10px;
+  background: var(--primary-main);
+  border-radius: 50%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.segment {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100vw;
+  height: 100vw;
+  background: var(--bg-primary);
+  transform-origin: 0 0;
+}
+
+.circul-edge-container {
+  width: 100%;
+  position: absolute;
+  display: flex;
+  justify-items: flex-end;
+  z-index: 1;
+  height: 3px;
+  transform: rotate(0deg);
+  left: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+}
+
+.circular-edge {
+  height: 100%;
+  width: 3px;
+  z-index: 3;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  margin-left: auto;
+}
+
+.circular-progress .segmentpie1 {
+  transform: rotate(0deg) skew(90deg, 0deg);
+}
+
+.circular-progress .segmentpie2 {
+  transform: rotate(90deg) skew(90deg, 0deg);
+}
+
+.circular-progress .segmentpie3 {
+  transform: rotate(180deg) skew(90deg, 0deg);
+}
+
+.circular-progress .segmentpie3 {
+  transform: rotate(270deg) skew(90deg, 0deg);
+}

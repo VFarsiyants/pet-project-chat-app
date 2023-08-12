@@ -1,0 +1,81 @@
+.login_form--wrapper {
+  background-image: url('../../images/background.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 100vh;
+}
+
+.login_form {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  max-width: 380px;
+  max-height: 504px;
+  padding: var(--spacing-40);
+  box-shadow: 0px 1px 8px 0px rgba(39, 59, 74, 0.16);
+  border-radius: var(--radius-corner-radius-8, 8px);
+  background: var(--bg-primary, #FFF);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-16);
+}
+
+.register_signin {
+  display: flex;
+  justify-content: space-between;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--text-secondary, #8287A0);
+}
+
+.register_form--header {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  margin-bottom: 16px;
+}
+
+.register_form--header h3 {
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.register_form--header p {
+  font-size: 14px;
+  color: var(--text-secondary, #8287A0);
+  font-weight: 500;
+  text-align: center;
+}
+
+a:link { 
+  text-decoration: none; 
+  color: var(--text-secondary, #8287A0);
+}
+
+a:visited { 
+  text-decoration: none; 
+  color: var(--text-secondary, #8287A0);
+}
+
+
+a:hover { 
+  text-decoration: none;
+  color: var(--text-secondary, #8287A0);
+}
+
+a:active { 
+  text-decoration: none;
+  color: var(--text-secondary, #8287A0);
+}
+
+.register-login-link {
+  justify-content: flex-end;
+  margin-right: 23px;
+  color: var(--text-secondary, #8287A0);
+}
+

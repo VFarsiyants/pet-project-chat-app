@@ -1,4 +1,3 @@
-import avatar from '../../images/Avatar.png'
 import './Avatar.css'
 
 
@@ -7,7 +6,7 @@ function Avatar(props) {
     <div className='avatar'>
       <img 
         className='avatar--image' 
-        src={avatar} 
+        src={props.avatarImg} 
         alt="avatar" />
       {props.isOnline &&<div className='avatar--online'></div>}
     </div>  

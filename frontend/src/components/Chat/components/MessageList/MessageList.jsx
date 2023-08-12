@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import './MessageList.css'
-import WebSocketInstance from '../../websocket';
+import { WebSocketChatInstance, WebSocketContactsInstance } from '../../websocket';
 import MessageFrom from './MessageFrom';
 import MessageTo from './MessageTo';
+import { convertTime } from '../../../../utils/utils';
 
 
 function MessageList(props) {
@@ -10,19 +11,34 @@ function MessageList(props) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
   const [messages, setMessages] = useState([])
-  
-  function addMessage(message){
-    setMessages(prevMessages => [...prevMessages, message])
+
+  function addMessage(socketData){
+    setMessages(prevMessages => [...prevMessages, socketData.message])
   }
 
   useEffect(() => {
-    WebSocketInstance.waitForSocketConnection(() => {
-      WebSocketInstance.addCallbacks(
-        setMessages.bind(this), addMessage.bind(this)
+    WebSocketChatInstance.disconnect()
+    WebSocketChatInstance.waitForSocketConnection(() => {
+      WebSocketChatInstance.addCallbacks({
+        messages: (socketData) => {setMessages(socketData.messages)},
+        new_message: addMessage.bind(this)
+      }
+        // setMessages.bind(this), addMessage.bind(this)
       );
-      WebSocketInstance.fetchMessages(props.currentUser);
+      WebSocketChatInstance.fetchMessages(props.currentUser);
     })
+    WebSocketChatInstance.connect(`user_chat/${props.selectedContactId}`);
+    WebSocketContactsInstance.waitForSocketConnection()
   }, []);
+
+  function sendReadNotification(messageId) {
+    WebSocketContactsInstance.sendMessage({
+      command: 'update_user_unread_message',
+      data: {
+        messageId: messageId
+      }
+    })
+  }
 
   useEffect(() => {
     function watchWidth() {
@@ -35,20 +51,12 @@ function MessageList(props) {
   }, [])
 
   useEffect(() => {
-    ref.current.style.height = '';
     ref.current.style.justifyContent = '';
     if (ref.current.clientHeight == ref.current.scrollHeight) {
-      ref.current.style.height = '100%';
       ref.current.style.justifyContent = 'end';
     }
-  }, [windowWidth])
-
-  function convertTime(datetimeStr) {
-    return new Date(datetimeStr)
-      .toLocaleTimeString('en-US',
-        {hour12:true, hour:'numeric', minute:'numeric'}
-      );
-  }
+    ref.current.scrollTop = ref.current.scrollHeight;
+  }, [messages, windowWidth])
 
   const messagesDomEls = messages.map(item =>
     props.currentUser == item.author 
@@ -58,9 +66,13 @@ function MessageList(props) {
           messageTime={convertTime(item.timestamp)}
         />
       : <MessageFrom
-      key={item.id}
+          key={item.id}
           messageText={item.content}
+          contactAvatar={props.selectedContact.avatar_url}
           messageTime={convertTime(item.timestamp)}
+          messageRead={item.read}
+          readObserverRef={ref}
+          createReadReceipt={() => sendReadNotification(item.id)}
         />
   )
 

@@ -1,0 +1,118 @@
+.user-panel--wraper {
+  width: 100vw;
+  height: 100%;
+  position: absolute;
+  right: -100%;
+  transform: translateX(0px);
+  display: flex;
+  transition: transform 0.3s ease-out;
+}
+
+.user-panel {
+  background: #FFF;
+  height: 100%;
+  max-width: 300px;
+  width: 100%;
+}
+
+.user-panel--wraper.active {
+  transform: translateX(-100%);
+}
+
+.user-panel--avatar {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.user-panel--info {
+  font-size: 14px;
+  overflow: hidden;
+  display: flex;
+  gap: var(--spacing-12, 12px);
+  align-items: center;
+  padding: 16px;
+  border-top: 1px solid var(--stroke-default, #EDEEF5);
+  border-right: 1px solid var(--stroke-default, #EDEEF5);
+  border-bottom: 1px solid var(--stroke-default, #EDEEF5);
+  background: var(--bg-secondary, #F5F7FB);
+}
+
+.user--name_status {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  overflow: hidden;
+  gap: 4px
+}
+
+.user--name {
+  color: var(--text-primary, #13141D);
+  font-weight: 500;
+}
+
+.user--status {
+  color: var(--gray-3, #828282);
+  color: var(--text-secondary, #8287A0);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 100%;
+}
+
+.user-panel--menu {
+  display: flex;
+  padding: 8px 0px;
+  flex-direction: column;
+}
+
+.user-panel--top {
+  padding: var(--spacing-16, 16px) var(--spacing-12, 12px);
+}
+
+.user-panel--top button {
+  background-color: unset;
+  color: var(--text-accent, #2B6CB0);
+  gap: var(--spacing-4, 4px);
+  display: flex;
+  align-items: center;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.user-panel--edit-user {
+  flex: 0 10 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #EDF2F7;
+  padding: 0 80px;
+}
+
+.user-panel--edit-user--card {
+  display: flex;
+  padding: var(--spacing-16, 16px);
+  align-items: center;
+  gap: var(--spacing-12, 12px);
+  border-radius: var(--radius-corner-radius-8, 8px);
+  background: #FFF;
+  width: 100%;
+}
+
+.user-panel-edit-name-status {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-8, 8px);
+  width: 100%;
+}
+
+.user-panel-edit-name-status hr {
+  border: solid 0.5px var(--stroke-default, #EDEEF5);
+}
+
+.user-panel--edit-user--card input {
+  display: none;
+}

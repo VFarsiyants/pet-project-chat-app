@@ -1,8 +1,20 @@
 .side_menu {
   max-width: 100%;
+  border-right: 1px solid var(--gray-6);
+  flex-basis: 300px;
+  flex-shrink: 1;
 }
 
 .side_menu--contact-list {
   overflow-y: scroll;
   max-height: calc(100vh - 56px);
+}
+
+.side_menu--contact-list::-webkit-scrollbar {
+  display: none;
+}
+
+.side_menu--contact-list {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }

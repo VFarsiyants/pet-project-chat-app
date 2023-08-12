@@ -1,4 +1,7 @@
 .container {
-    display: flex;
-    height: 100vh;
+  display: flex;
+  height: 100%;
+  width: 100vw;
+  overflow-x: hidden;
+  overflow-y: auto;
 }

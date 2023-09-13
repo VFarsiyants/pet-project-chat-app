@@ -22,10 +22,8 @@ services:
       - pg_data:/var/lib/postgresql/data/
     expose:
       - 5432
-    environment:
-      - POSTGRES_USER=${DATABASE_USER}
-      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
-      - POSTGRES_DB=${DATABASE_NAME}
+    env_file:
+      - docker.env
   webserver:
     image: nginx:1.19.8-alpine
     depends_on:

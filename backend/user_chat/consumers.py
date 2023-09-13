@@ -216,7 +216,7 @@ class ContactsStatusConsumer(GetChatConsumerMixin, AsyncWebsocketConsumer):
     def set_user_online(self, online_status):
         '''Returns list of users' ids with whom current user have chat'''
         self.user.online_status = online_status
-        self.user.save()
+        self.user.save(update_fields=['online_status'])
 
     async def user_status_update(self, event):
         status = event["status"]
